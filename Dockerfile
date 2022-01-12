@@ -10,6 +10,7 @@ RUN apt-get update && DEBIAN_FRONTEND=“noninteractive” apt-get install -y --
         cifs-utils \
         && \
      rm -rf /var/lib/apt/lists/*
+     
 RUN apt-get update && apt-get -y install cron
 RUN mkdir /opt/demo_azure
 RUN chmod -R 777 /opt/demo_azure
