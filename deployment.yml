@@ -1,0 +1,42 @@
+api-version: 2019-12-01
+location: eastus
+name: demo_azure
+properties:
+  containers:
+  - name: streamlitapp
+    properties:
+      image: demoregistry42.azurecr.io/azure_demo:v1
+      ports:
+      - port: 80
+        protocol: TCP
+      - port: 443
+        protocol: TCP
+      volumeMounts: # Array of volume mounts for the instance
+      - name: mydemovolume
+        mountPath: /mnt/letsencrypt
+      resources:
+        requests:
+          cpu: 2.0
+          memoryInGB: 1.5
+  imageRegistryCredentials:
+  - server: demoregistry42.azurecr.io
+    username: demoregistry42
+    password: FPSis6hZPZEvwOGhDXrsTTuO=vSdrMDN
+  restartPolicy: Never
+  ipAddress:
+    ports:
+    - port: 443
+      protocol: TCP
+    - port: 80
+      protocol: TCP
+    type: Public
+    dnsNameLabel: demodns
+  volumes: # Array of volumes available to the instances
+  - name: mydemovolume
+    azureFile:
+      shareName: demofileshare
+      storageAccountName: demostorageaccount42
+      storageAccountKey: 7Sepr61ihPDGQ9nMjgEzDsyBEAm+MWrjrLZw7SV0ny5pFwttqjrKlnnnvEBdel8zphbomGKCmksekbXVQAvWHw==
+  osType: Linux
+tags: null
+type: Microsoft.ContainerInstance/containerGroups
